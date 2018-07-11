@@ -17,21 +17,17 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 from rest_framework import routers, serializers, viewsets
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ('url', 'username', 'email', 'is_staff')
-
-# ViewSets define the view behavior.
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
 
 urlpatterns = [
-    re_path(r`^login/`, auth_views.login, name='login'),
+    path('accounts/api/',include('accounts.urls')),
+    path('posts/', include('post.urls'), name='posts'),
     path('admin/', admin.site.urls),
 ]
+
+
+# "email": "faker@faker.com",
+   # "username": "TestBoy",
+   # "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJ1c2VybmFtZSI6IlRlc3RCb3kiLCJleHAiOjE1MzEzNDg0OTQsImVtYWlsIjoiZmFrZXJAZmFrZXIuY29tIn0.ugM3CXu5Vrq61VU1NjPh1PTCMF_8JHLfmV3qINz88n8"
