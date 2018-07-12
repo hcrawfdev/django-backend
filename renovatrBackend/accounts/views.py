@@ -14,11 +14,12 @@ class User_Creation_View(CreateAPIView):
     serializer_class = User_Creation_Serializer
     permission_classes = [AllowAny]
 
-def jwt_response_payload_hanlder(token, user=None, request=None):
+def jwt_response_payload_handler(token, user=None, request=None):
     return {
         'token': token,
         'user': User_Serializer(user, context={'request': request}).data
     }
+    print("hello")
 
 
 
